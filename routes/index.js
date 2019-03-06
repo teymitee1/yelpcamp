@@ -1,4 +1,4 @@
-var express     =   require("express"),
+let express     =   require("express"),
     router      =   express.Router(),
     passport    =   require("passport"),
     User        =   require("../models/user");
@@ -15,7 +15,7 @@ router.get("/register", (req, res)=>{
 
 //Sign up logic Route
 router.post("/register", (req, res)=>{
-    var newUser = new User({username: req.body.username});
+    let newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, (err, user)=>{
         if(err){
             console.log(err);

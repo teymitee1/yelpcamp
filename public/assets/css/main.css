@@ -10,6 +10,10 @@
     padding: 10px;
 }
 
-form#delete-form {
+.thumbnail .btn {
+    margin-bottom: 15px;
+}
+
+#delete-form {
     display: inline;
 }
