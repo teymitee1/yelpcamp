@@ -3,22 +3,18 @@ let Campground = require("../models/campground");
 //MiddleWare
 let middlewareObj = {};
 
-middlewareObj.isLoggedIn = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-}
 
 middlewareObj.checkCampgroundOwnership = (req, res, next) => {
     if (req.isAuthenticated()) {
         Campground.findById(req.params.id, (err, foundCampground) => {
             if (err) {
+                req.flash("error", "You need to be logged in to do that")
                 res.redirect("back");
             } else {
                 if (foundCampground.author.id.equals(req.user._id)) {
                     next();
                 } else {
+                    req.flash("error", "You dont have the permission to do that")
                     res.redirect("back");
                 }
             }
@@ -45,4 +41,13 @@ middlewareObj.checkCommentOwnership = (req, res, next) => {
         res.redirect("back");
     }
 }
+
+middlewareObj.isLoggedIn = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    req.flash("error", "You need to be logged in to do that")
+    res.redirect("/login");
+}
+
 module.exports = middlewareObj;

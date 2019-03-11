@@ -24,6 +24,7 @@ router.post("/", middlewareObj.isLoggedIn, (req, res) => {
         } else {
             Comment.create(req.body.comment, (err, comment) => {
                 if (err) {
+                    req.flash("error", "Something went wrong ")
                     console.log(err);
                 } else {
                     comment.author.id = req.user._id;
@@ -31,6 +32,7 @@ router.post("/", middlewareObj.isLoggedIn, (req, res) => {
                     comment.save();
                     foundCampground.comments.push(comment);
                     foundCampground.save();
+                    req.flash("success", "Successfully added a comment")
                     res.redirect('/campgrounds/' + foundCampground._id)
                 }
             });
