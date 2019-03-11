@@ -1,21 +1,21 @@
-let express = require("express"),
-    app = express(),
-    bodyParser = require("body-parser"),
-    mongoose = require("mongoose"),
-    passport = require("passport"),
-    LocalStrategy = require("passport-local"),
-    methodOverride = require("method-override"),
-    Campground = require("./models/campground"),
-    Comment = require("./models/comments"),
-    User = require("./models/user"),
-    seedDB = require("./seeds");
+const   express = require("express"),
+        app = express(),
+        bodyParser = require("body-parser"),
+        mongoose = require("mongoose"),
+        passport = require("passport"),
+        LocalStrategy = require("passport-local"),
+        methodOverride = require("method-override"),
+        Campground = require("./models/campground"),
+        Comment = require("./models/comments"),
+        User = require("./models/user"),
+        seedDB = require("./seeds");
 
 //requiring routes
-let commentRoutes = require("./routes/comments"),
-    campgroundRoutes = require("./routes/campgrounds"),
-    indexRoutes = require("./routes/index");
+let     commentRoutes = require("./routes/comments"),
+        campgroundRoutes = require("./routes/campgrounds"),
+        indexRoutes = require("./routes/index");
 
-mongoose.connect("mongodb://localhost/yelpcamp");
+mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
