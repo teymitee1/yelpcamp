@@ -16,14 +16,14 @@ let     commentRoutes = require("./routes/comments"),
         campgroundRoutes = require("./routes/campgrounds"),
         indexRoutes = require("./routes/index");
 
-mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser: true});
+// mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser: true});
+mongoose.connect("mongodb://teymitee:%40Conjugate1@cluster0-shard-00-00-amcv1.mongodb.net:27017,cluster0-shard-00-01-amcv1.mongodb.net:27017,cluster0-shard-00-02-amcv1.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true");
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(flash());
-
-// seedDB(); //seed the database
 
 //PASSPORT CONFIG
 app.use(require("express-session")({
