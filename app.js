@@ -11,19 +11,17 @@ const   express = require("express"),
         User = require("./models/user"),
         seedDB = require("./seeds");
 
+mongoose.connect("mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("Connection to DB succeeded");
+});
+
 //requiring routes
 let     commentRoutes = require("./routes/comments"),
         campgroundRoutes = require("./routes/campgrounds"),
         indexRoutes = require("./routes/index");
-
-// mongoose.connect("mongodb://localhost/yelpcamp", {useNewUrlParser: true});
-// mongoose.connect("mongodb+srv://teymitee:%40Conjugate1@yelpcamp-amcv1.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
-mongoose.connect("mongodb+srv://teymitee:%40Conjugate1@yelpcamp-amcv1.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
-  console.log("connected to DB");
-});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
