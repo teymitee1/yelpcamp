@@ -18,6 +18,13 @@ db.once('open', function callback () {
   console.log("Connection to DB succeeded");
 });
 
+var reqTimer = setTimeout(function wakeUp() {
+    request("https://shielded-citadel-85252.herokuapp.com", function() {
+       console.log("WAKE UP DYNO");
+    });
+    return reqTimer = setTimeout(wakeUp, 1200000);
+ }, 1200000);
+
 //requiring routes
 let     commentRoutes = require("./routes/comments"),
         campgroundRoutes = require("./routes/campgrounds"),
