@@ -11,7 +11,7 @@ const   express = require("express"),
         User = require("./models/user"),
         seedDB = require("./seeds");
 
-mongoose.connect("mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/YelpCamp?retryWrites=true", { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
