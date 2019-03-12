@@ -56,5 +56,4 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 let port = process.env.PORT || 3000;
-let ip = process.env.IP || "127.0.0.1";
-app.listen(port, ip);
+app.listen(port);
