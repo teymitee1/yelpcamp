@@ -7,7 +7,7 @@ let express = require("express"),
 router.get("/", (req, res) => {
     Campground.find({}, (err, allCampgrounds) => {
         if (err) {
-            console.log(err)
+            req.flash("error", err.message)
         } else {
             res.render("campgrounds/campgrounds", { campgrounds: allCampgrounds, currentUser: req.user });
         }
