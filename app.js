@@ -16,37 +16,8 @@ let commentRoutes = require("./routes/comments"),
   campgroundRoutes = require("./routes/campgrounds"),
   indexRoutes = require("./routes/index");
 
-// mongoose.connect("mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/YelpCamp?retryWrites=true", { useNewUrlParser: true });
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function callback() {
-//   console.log("Connection to DB succeeded");
-// });
-
-const options = {
-  useMongoClient: true,
-  reconnectTries: 5000,
-  reconnectInterval: 0,
-  socketTimeoutMS: 100000,
-  connectTimeoutMS: 100000
-}
-
-mongoose.connect("mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/YelpCamp?retryWrites=true");
-var db = mongoose.connection;
-
-db.on('error', function (error) {
-  console.log('Error while connecting to mongodb database:', error);
-});
-
-db.once('open', function () {
-  console.log('Successfully connected to mongodb database');
-});
-
-db.on('disconnected', function () {
-  //Reconnect on timeout
-  mongoose.connect("mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/YelpCamp?retryWrites=true", options);
-    db = mongoose.connection;
-});
+var url = process.env.DATABASEURL || "mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/YelpCamp?retryWrites=true";
+mongoose.connect(url);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
@@ -82,6 +53,6 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 const host = '0.0.0.0';
 const port = process.env.PORT || 3000;
 
-app.listen(port, host, function() {
-  console.log("Server started.......");
-});
+app.listen(process.env.PORT, process.env.IP, function(){
+  console.log("YelpCamp is running");
+})
