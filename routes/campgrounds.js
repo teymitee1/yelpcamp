@@ -4,7 +4,7 @@ let express = require("express"),
     middlewareObj = require("../middleware");
 
 //INDEX - show all campgrounds
-router.get("/", (req, res) => {
+router.get("/campgrounds", (req, res) => {
     Campground.find({}, (err, allCampgrounds) => {
         if (err) {
             req.flash("error", err.message)
