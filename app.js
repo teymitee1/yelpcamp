@@ -1,26 +1,28 @@
-const   express = require("express"),
-        app = express(),
-        bodyParser = require("body-parser"),
-        mongoose = require("mongoose"),
-        flash = require("connect-flash"),
-        passport = require("passport"),
-        LocalStrategy = require("passport-local"),
-        methodOverride = require("method-override"),
-        Campground = require("./models/campground"),
-        Comment = require("./models/comments"),
-        User = require("./models/user"),
-        seedDB = require("./seeds");
+const express = require("express"),
+  app = express(),
+  bodyParser = require("body-parser"),
+  mongoose = require("mongoose"),
+  flash = require("connect-flash"),
+  passport = require("passport"),
+  LocalStrategy = require("passport-local"),
+  methodOverride = require("method-override"),
+  Campground = require("./models/campground"),
+  Comment = require("./models/comments"),
+  User = require("./models/user"),
+  seedDB = require("./seeds");
+
+//requiring routes
+let commentRoutes = require("./routes/comments"),
+  campgroundRoutes = require("./routes/campgrounds"),
+  indexRoutes = require("./routes/index");
 
 mongoose.connect("mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/YelpCamp?retryWrites=true", { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
+db.once('open', function callback() {
   console.log("Connection to DB succeeded");
 });
-//requiring routes
-let     commentRoutes = require("./routes/comments"),
-        campgroundRoutes = require("./routes/campgrounds"),
-        indexRoutes = require("./routes/index");
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
@@ -30,9 +32,9 @@ app.use(flash());
 
 //PASSPORT CONFIG
 app.use(require("express-session")({
-    secret: "Temitope created this application",
-    resave: false,
-    saveUninitialized: false
+  secret: "Temitope created this application",
+  resave: false,
+  saveUninitialized: false
 }));
 
 app.use(passport.initialize());
@@ -42,10 +44,10 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
-    res.locals.error = req.flash("error");
-    res.locals.success = req.flash("success");
-    next();
+  res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
+  next();
 });
 
 
@@ -54,4 +56,5 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 let port = process.env.PORT || 3000;
-app.listen(port);
+let ip = process.env.IP || "127.0.0.1";
+app.listen(port, ip);
