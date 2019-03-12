@@ -17,14 +17,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
   console.log("Connection to DB succeeded");
 });
-
-var reqTimer = setTimeout(function wakeUp() {
-    request("https://shielded-citadel-85252.herokuapp.com", function() {
-       console.log("WAKE UP DYNO");
-    });
-    return reqTimer = setTimeout(wakeUp, 1200000);
- }, 1200000);
-
 //requiring routes
 let     commentRoutes = require("./routes/comments"),
         campgroundRoutes = require("./routes/campgrounds"),
@@ -61,4 +53,5 @@ app.use(indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT);
+let port = process.env.PORT || 3000;
+app.listen(port);

@@ -42,7 +42,7 @@ router.get("/new", middlewareObj.isLoggedIn, (req, res) => {
 router.get("/:id", (req, res) => {
     Campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
         if (err) {
-            console.log(err)
+            console.log(err.message)
         } else {
             res.render("campgrounds/Show", { campground: foundCampground });
         }
