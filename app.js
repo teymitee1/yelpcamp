@@ -29,8 +29,6 @@ app.use(flash());
 app.use(require("cookie-session")({
   name: "session",
   keys: "sessionId",
-  secret: 'This is secret',
-  resave: true,
   maxAge: 30*10000
 }));
 
