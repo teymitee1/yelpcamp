@@ -17,7 +17,7 @@ let commentRoutes = require("./routes/comments"),
   indexRoutes = require("./routes/index");
 
 var url = process.env.DATABASEURL || "mongodb+srv://teymitee:4KdHUEJmd8w21t5h@yelpcamp-amcv1.mongodb.net/YelpCamp?retryWrites=true";
-mongoose.connect(url);
+mongoose.connect(url, { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
@@ -26,7 +26,7 @@ app.use(methodOverride("_method"));
 app.use(flash());
 
 //PASSPORT CONFIG
-app.use(require("express-session")({
+app.use(require("cookie-session")({
   secret: "Temitope created this application",
   resave: false,
   saveUninitialized: false
