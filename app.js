@@ -27,8 +27,9 @@ app.use(flash());
 
 //PASSPORT CONFIG
 app.use(require("cookie-session")({
-  name: "session",
-  keys: "sessionId",
+  secret: "Temitope created this application",
+  resave: false,
+  saveUninitialized: false,
   maxAge: 30*10000
 }));
 
