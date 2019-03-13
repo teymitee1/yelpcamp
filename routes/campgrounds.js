@@ -7,7 +7,11 @@ let express = require("express"),
 router.get("/", (req, res) => {
     Campground.find({}, (err, allCampgrounds) => {
         if (err) {
+<<<<<<< HEAD
             req.flash("error", err.message)
+=======
+            console.log(err)
+>>>>>>> origin/master
         } else {
             res.render("campgrounds/campgrounds", { campgrounds: allCampgrounds, currentUser: req.user });
         }
@@ -42,9 +46,15 @@ router.get("/new", middlewareObj.isLoggedIn, (req, res) => {
 router.get("/:id", (req, res) => {
     Campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
         if (err) {
+<<<<<<< HEAD
             console.log(err.message)
         } else {
             res.render("campgrounds/show", { campground: foundCampground });
+=======
+            console.log(err)
+        } else {
+            res.render("campgrounds/Show", { campground: foundCampground });
+>>>>>>> origin/master
         }
     });
 
