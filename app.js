@@ -30,7 +30,7 @@ app.use(require("cookie-session")({
   secret: "Temitope created this application",
   resave: false,
   saveUninitialized: false,
-  maxAge: 30*10000
+  maxAge: 30 * 10000
 }));
 
 app.use(passport.initialize());
@@ -54,6 +54,6 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 const host = process.env.IP || '0.0.0.0';
 const port = process.env.PORT || 3000;
 
-app.listen(port, host, function(){
+app.listen(port, host, function () {
   console.log("YelpCamp is running");
 })
